@@ -498,6 +498,9 @@ md-input-container{width:100%!important}
 
 
             </div>
+	 <div class="customer-info-item">
+                    <p> Rep:  {{userName}}  Phone:  {{userPhone}}  Email:  {{userEmail}}</p>
+                </div>
             <br />
             <!-- form and customer infor -->
             <div class="customer-info-container">
@@ -509,13 +512,6 @@ md-input-container{width:100%!important}
                     <p>Date:  {{ showDate(f_info.fv_date)}}</p>
                     
                 </div>
-                <div class="customer-info-item">
-                   <p> Rep:  {{userName}}   </p>
-                   <p> Phone:  {{userPhone}}</p>  
-                   <p> Email:  {{userEmail}}</p>
-                </div>
-
-
                 <div class="customer-info-item">
                    <p> Address:  {{ f_info.bv_address }}</p>
                 </div>
@@ -553,43 +549,64 @@ md-input-container{width:100%!important}
  <br/> 
                 <table ng-if="itemQty.Light>0">
                     <!-- <caption id="caption2">Lights</caption> -->
-                    <tr>
-                        <th>QTY</th>
+     <tr>
+         <th></th>
 
-                        <th>Installing</th>
-                        <th>Existing</th>
-                        <th>Fix/Retro/Lamp</th>
-                        <th># working Fixtures</th>
+         <th colspan="4">New Fixture</th>
+         <th colspan="4">Existing Fixture</th>
+         <th colspan="5"></th>
+      </tr>
+     <tr>
+         <th>QTY</th>
 
-                        <th>Notes</th>
-                        <th>Price</th>
-                        <th>Total</th>
-                    </tr>
+         <th colspan="2">Type</th>
+         <th>watt</th>
+         <th>color</th>
+         <th colspan="2">Type</th>
+         <th>watt</th>
+         <th># of lights</th>
+         <th>Fix/Retro/Lamp</th>
+         <th># working Fixtures</th>
+         <th>Notes</th>
+         <th>Price</th>
+         <th>Total</th>
+     </tr>
+
+     <tr ng-repeat="line in lineArr" ng-if="lineArr[$index].name=='Light'">
 
 
-                    <tr ng-repeat="line in lineArr" ng-if="lineArr[$index].name=='Light'">
+         <td>{{ lineArr[$index].idqty }}</td>
 
+         <td colspan="2">
+             {{ lineArr[$index].vuNwFxTy }} , {{ lineArr[$index].vuNwLtTy }}
+         </td>
+         <td>
+             {{ lineArr[$index].vuNewWt }}w
+         </td>
+         <td>
+             {{ lineArr[$index].vuColor }}
+         </td>
+         <td colspan="2">
+             {{ lineArr[$index].vuExFxTy }} , {{ lineArr[$index].vuExLtTy  }}
+         </td>
+         <td>
+             {{ lineArr[$index].vuCurWt }}w
+         </td>
+         <td>
+             {{ lineArr[$index].vuNOL  }} lights per fixture
+         </td>
+         <td ng-if="lineArr[$index].vuType==='Retrofit'?true:false">This is a Retrofit</td>
+         <td ng-if="lineArr[$index].vuType==='Fixture'?true:false">This is a Fixture</td>
+         <td ng-if="lineArr[$index].vuType==='Lamp'?true:false">This is a Lamp</td>
 
-                        <td>{{ lineArr[$index].idqty }}</td>
+         <td ng-if="lineArr[$index].vuWorkLt==lineArr[$index].idqty?true:false">All lights / Fixtures are working</td>
+         <td ng-if="lineArr[$index].vuWorkLt==lineArr[$index].idqty?false:true">There are {{ lineArr[$index].vuWorkLt  }} Working lights / Fixtures out of {{ lineArr[$index].idqty }}.</td>
 
-                        <td>
-                            {{ lineArr[$index].vuNwFxTy }} , {{ lineArr[$index].vuNewWt }}w, {{ lineArr[$index].vuNwLtTy }}, {{ lineArr[$index].vuColor }}
-                        </td>
-                        <td>
-                            {{ lineArr[$index].vuExFxTy }} {{ lineArr[$index].vuCurWt }}w, {{ lineArr[$index].vuExLtTy  }}, {{ lineArr[$index].vuNOL  }} light per fixture.
-                        </td>
-                        <td ng-if="lineArr[$index].vuType==='Retrofit'?true:false">This is a Retrofit</td>
-                        <td ng-if="lineArr[$index].vuType==='Fixture'?true:false">This is a Fixture</td>
-                        <td ng-if="lineArr[$index].vuType==='Lamp'?true:false">This is a Lamp</td>
+         <td>{{ lineArr[$index].vuNote }}</td>
+         <td>${{ lineArr[$index].vuPrice }}</td>
+         <td>${{ lineArr[$index].vuPrice*lineArr[$index].idqty }}</td>
 
-                        <td ng-if="lineArr[$index].vuWorkLt==lineArr[$index].idqty?true:false">All lights / Fixtures are working</td>
-                        <td ng-if="lineArr[$index].vuWorkLt==lineArr[$index].idqty?false:true">There are {{ lineArr[$index].vuWorkLt  }} Working lights / Fixtures out of {{ lineArr[$index].idqty }}.</td>
-
-                        <td>{{ lineArr[$index].vuNote }}</td>
-                        <td>${{ lineArr[$index].vuPrice }}</td>
-                        <td>${{ lineArr[$index].vuPrice*lineArr[$index].idqty }}</td>
-
-                    </tr>
+     </tr>
                 </table>
             </div>
             <!-- ---------------- ASH ------------------ -->
