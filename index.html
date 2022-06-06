@@ -499,7 +499,7 @@ md-input-container{width:100%!important}
 
             </div>
 	 <div class="customer-info-item">
-                    <p> Rep:  {{userName}}     |     Phone:  {{userPhone}}    |     Email:  {{userEmail}}</p>
+		 <p> Rep:  {{userName}}  <span>  |  Phone:  {{userPhone}} </span> <span>  |  Email:  {{userEmail}} </span></p>
                 </div>
             <br />
             <!-- form and customer infor -->
@@ -599,8 +599,7 @@ md-input-container{width:100%!important}
          <td ng-if="lineArr[$index].vuType==='Fixture'?true:false">This is a Fixture</td>
          <td ng-if="lineArr[$index].vuType==='Lamp'?true:false">This is a Lamp</td>
 
-         <td ng-if="lineArr[$index].vuWorkLt==lineArr[$index].idqty?true:false">All lights / Fixtures are working</td>
-         <td ng-if="lineArr[$index].vuWorkLt==lineArr[$index].idqty?false:true">There are {{ lineArr[$index].vuWorkLt  }} Working lights / Fixtures out of {{ lineArr[$index].idqty }}.</td>
+         <td>{{ lineArr[$index].vuWorkLt  }} Working lights / Fixtures</td>
 
          <td>{{ lineArr[$index].vuNote }}</td>
          <td>${{ lineArr[$index].vuPrice }}</td>
