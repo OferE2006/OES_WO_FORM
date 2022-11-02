@@ -593,21 +593,23 @@ md-input-container{width:100%!important}
      <tr>
          <th></th>
 
-         <th colspan="4">New Fixture</th>
+         
          <th colspan="4">Existing Fixture</th>
+	 <th colspan="4">New Fixture</th>
          <th colspan="5"></th>
       </tr>
      <tr>
          <th>QTY</th>
-
+	 <th colspan="2">Type</th>
+         <th>watt</th>
+         <th># of lights</th>
+	     
          <th colspan="2">Type</th>
          <th>watt</th>
          <th>color</th>
-         <th colspan="2">Type</th>
-         <th>watt</th>
-         <th># of lights</th>
+         
          <th>Fix/Retro/Lamp</th>
-         <th># working Fixtures</th>
+         <th>Height</th>
          <th>Notes</th>
          <th>Price</th>
          <th>Total</th>
@@ -617,7 +619,17 @@ md-input-container{width:100%!important}
 
 
          <td>{{ lineArr[$index].idqty }}</td>
-
+	     
+         <td colspan="2">
+             {{ lineArr[$index].vuExFxTy }} , {{ lineArr[$index].vuExLtTy  }}
+         </td>
+         <td>
+             {{ lineArr[$index].vuCurWt }}w
+         </td>
+         <td>
+             {{ lineArr[$index].vuNOL  }} 
+         </td>
+	     
          <td colspan="2">
              {{ lineArr[$index].vuNwFxTy }} , {{ lineArr[$index].vuNwLtTy }}
          </td>
@@ -627,20 +639,12 @@ md-input-container{width:100%!important}
          <td>
              {{ lineArr[$index].vuColor }}
          </td>
-         <td colspan="2">
-             {{ lineArr[$index].vuExFxTy }} , {{ lineArr[$index].vuExLtTy  }}
-         </td>
-         <td>
-             {{ lineArr[$index].vuCurWt }}w
-         </td>
-         <td>
-             {{ lineArr[$index].vuNOL  }} lights per fixture
-         </td>
-         <td ng-if="lineArr[$index].vuType==='Retrofit'?true:false">This is a Retrofit</td>
-         <td ng-if="lineArr[$index].vuType==='Fixture'?true:false">This is a Fixture</td>
-         <td ng-if="lineArr[$index].vuType==='Lamp'?true:false">This is a Lamp</td>
 
-         <td>{{ lineArr[$index].vuWorkLt  }} Working lights / Fixtures</td>
+         <td ng-if="lineArr[$index].vuType==='Retrofit'?true:false">Retrofit</td>
+         <td ng-if="lineArr[$index].vuType==='Fixture'?true:false">Fixture</td>
+         <td ng-if="lineArr[$index].vuType==='Lamp'?true:false">Lamp</td>
+
+         <td>{{ lineArr[$index].vuFxHigh  }} ft</td>
 
          <td>{{ lineArr[$index].vuNote }}</td>
          <td>${{ lineArr[$index].vuPrice }}</td>
@@ -795,10 +799,10 @@ md-input-container{width:100%!important}
 
             </div>
             <div id='dec'  >
-                <p class="declair">- Please make checks payable to E.B.E USA Inc.</p>
+                <p class="declair">- Please make checks payable to Orange Energizing Solutions</p>
                 <p class="declair">- Customer payment is due upon installation.</p>
                 <p class="declair">- By signing this order I hereby agree to allow a representative access to this facility in order to preform a free post installation inspection.</p>
-                <p class="declair">- By signing this order customer acknowledges that E.B.E. USA Inc. is a trade ally of the energy efficiency program and authorizes direct payment of incentives to be submitted to trade ally upon project completion.</p>
+                <p class="declair">- By signing this order customer acknowledges that Orange Energizing Solutions is a trade ally of the energy efficiency program and authorizes direct payment of incentives to be submitted to trade ally upon project completion.</p>
                 <p class="declair">- I agree to pay any taxes applicable to this sale.</p>
                 <p class="declair">- By signing this order I hereby acknowledge I have read and agreed to these terms.</p>
                 <p class="declair">- Without your signature, we can not start the installation process.</p>
@@ -1059,15 +1063,23 @@ $scope.ChangeuserEmail = function(v){$scope.userEmail = v;   };
               
                 switch (fixture) {
                     case 'Troffer':
+			return ['1x4', '2x2', '2x4']
+                        break;
                     case 'Panel':
                         return ['1x4', '2x2', '2x4']
                         break;
                     case 'Strip':
+			return ['4ft', '8ft']
+                        break;
                     case 'Wrap':
                         return ['4ft', '8ft']
                         break;
                     case 'High-Bay':
+			return ['UFO', 'Linear']
+                        break;
                     case 'Wall-Pack':
+			return ['Semi cut-off', 'full cut-off']
+                        break;
                     case 'Flush-Mount':
                     case 'Flood':
                         return ['Bracket', 'Knuckle-mount']
@@ -1114,6 +1126,8 @@ $scope.ChangeuserEmail = function(v){$scope.userEmail = v;   };
             $scope.returnLtArray = function (fixture) {
                  switch (fixture) {
                     case 'Troffer':
+			return ['2x2', '2x4', '1x4']
+                        break;
                     case 'Panel':
                         return ['2x2', '2x4', '1x4']
                         break;
@@ -1121,7 +1135,11 @@ $scope.ChangeuserEmail = function(v){$scope.userEmail = v;   };
                         return ['4ft', '8ft']
                         break;
                     case 'Wrap':
+			return ['4ft', '8ft']
+                        break;
                     case 'Cooler':
+			return ['T12', 'T8']
+                        break;
                     case 'Flush-Mount':
                         return ['T12', 'T8', 'T5']
                         break;
@@ -1132,7 +1150,11 @@ $scope.ChangeuserEmail = function(v){$scope.userEmail = v;   };
                         return ['A19', 'CFL', 'BR40', 'BR30']
                         break;
                     case 'Wall-Pack':
+			return ['N/A']
+                        break;
                     case 'Shoe-Box':
+			return ['N/A']
+                        break;
                     case 'Flood':
                         return ['MH', 'HPS']
                         break;
